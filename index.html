@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b4b">
+<title>תיק החולה – תעלומת האגם שנעלם</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --deep:#123b4b;--blue:#176c83;--teal:#269b91;--aqua:#9bded1;
+  --green:#608c62;--pale:#e8f4ee;--cream:#f8f5eb;--gold:#efc66f;
+  --ink:#193947;--muted:#607985;--white:#fff;--red:#b84d43;
+  --shadow:0 15px 40px #143c4b1c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);
+  background:linear-gradient(145deg,#e4f1e9,#f8f5eb 48%,#e0eef0);
+}
+button{font:inherit}
+.hero{
+  position:relative;overflow:hidden;color:white;
+  padding:55px 22px 80px;
+  background:linear-gradient(120deg,#102e42,#145c70 58%,#258b80);
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;border-radius:50%;background:#ffffff0b;
+}
+.hero:before{width:480px;height:480px;left:-150px;top:-260px}
+.hero:after{width:330px;height:330px;right:-120px;bottom:-240px}
+.hero-inner{max-width:1120px;margin:auto;position:relative;z-index:1}
+.eyebrow{font-size:.85rem;letter-spacing:2px;color:#b8e9dc;font-weight:800}
+.hero h1{font-size:clamp(2.6rem,7vw,5.4rem);line-height:1;margin:15px 0 8px}
+.hero h2{font-size:clamp(1.35rem,3vw,2.1rem);color:#f2d48e;margin:0}
+.hero p{max-width:690px;color:#d8edf0;line-height:1.85;font-size:1.08rem}
+.hero-symbols{font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:12px;margin-top:20px}
+.hero-bird{display:inline-block;animation:floatBird 3s ease-in-out infinite}
+.hero-bird:nth-child(2){animation-delay:.6s}
+.hero-bird:nth-child(3){animation-delay:1.2s}
+@keyframes floatBird{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+
+main{max-width:1120px;margin:-36px auto 60px;padding:0 18px;position:relative}
+.panel{
+  background:#ffffffed;border:1px solid #ffffff;border-radius:25px;
+  padding:24px;box-shadow:var(--shadow);margin-bottom:22px;
+}
+.intro{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:center}
+.intro h2{margin:0 0 8px;font-size:1.5rem}
+.intro p{margin:0;line-height:1.85;color:#4f6b77}
+.mission-stamp{
+  border:2px dashed #8abdb0;border-radius:20px;padding:20px;text-align:center;
+  color:#176c70;background:#edf8f2;font-weight:800;
+}
+.mission-stamp span{display:block;font-size:2.8rem;margin-bottom:4px}
+.section-heading{display:flex;align-items:center;gap:13px;margin:30px 0 16px}
+.section-heading h2{font-size:1.55rem;margin:0}
+.section-heading:after{content:"";height:1px;background:#bfd5d2;flex:1}
+.progress-head{display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.progress-track{height:12px;background:#e4eeee;border-radius:20px;overflow:hidden;margin-top:10px}
+.progress-fill{
+  height:100%;width:0;border-radius:20px;
+  background:linear-gradient(90deg,#249c91,#a5d88e);transition:width .5s;
+}
+
+/* MAP */
+.map-panel{
+  background:linear-gradient(145deg,#fff,#eaf5ef);
+  border-radius:26px;padding:24px;box-shadow:var(--shadow);margin:24px 0;
+}
+.map-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.map-kicker{font-size:.8rem;font-weight:900;letter-spacing:1px;color:#218b7e}
+.map-heading h2{margin:4px 0;font-size:1.5rem}
+.map-heading p{margin:0;color:var(--muted)}
+.compass{
+  width:54px;height:54px;border:2px solid #9bc9bd;border-radius:50%;
+  display:grid;place-content:center;text-align:center;font-weight:900;color:#176b70;
+}
+.map-wrap{position:relative;margin-top:18px;border-radius:20px;overflow:hidden;
+  border:1px solid #c9ded6;background:#d7edf0}
+.map-wrap svg{display:block;width:100%;height:auto}
+.map-marker{
+  position:absolute;width:39px;height:39px;border-radius:50%;
+  display:grid;place-items:center;text-decoration:none;font-weight:900;
+  color:#203d45;background:var(--gold);border:3px solid white;
+  box-shadow:0 4px 15px #143d4c55;animation:pulse 2.4s infinite;
+  transition:transform .2s,background .2s;
+}
+.map-marker:hover{transform:scale(1.22);background:#fff}
+.m1{left:25%;top:61%}.m2{left:39%;top:48%}.m3{left:54%;top:64%}
+.m4{left:67%;top:51%}.m5{left:78%;top:68%}.m6{left:48%;top:80%}
+@keyframes pulse{
+  0%,100%{box-shadow:0 4px 15px #143d4c55}
+  50%{box-shadow:0 0 0 8px #efc66f48,0 4px 15px #143d4c55}
+}
+.birds-flight{animation:fly 14s linear infinite}
+@keyframes fly{
+  from{transform:translateX(-150px)}
+  to{transform:translateX(1000px)}
+}
+.water-ripple{animation:ripple 3s ease-in-out infinite;transform-origin:center}
+.water-ripple:nth-child(2){animation-delay:1s}
+.water-ripple:nth-child(3){animation-delay:2s}
+@keyframes ripple{0%,100%{opacity:.3;transform:scaleX(.7)}50%{opacity:1;transform:scaleX(1.25)}}
+.reed{transform-origin:bottom;animation:sway 3.2s ease-in-out infinite}
+.reed:nth-child(even){animation-delay:1s}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+.map-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:14px;
+  font-weight:700;color:#4b6d72;font-size:.9rem}
+.map-note{text-align:center;color:#7a8d91;font-size:.78rem;margin-top:10px}
+
+/* STATIONS */
+.stations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.station{
+  background:#fff;border:1px solid #dce9e5;border-radius:22px;padding:21px;
+  box-shadow:0 8px 22px #153c4a0b;scroll-margin-top:20px;
+  animation:appear .65s ease both;
+}
+.station:nth-child(2){animation-delay:.07s}
+.station:nth-child(3){animation-delay:.14s}
+.station:nth-child(4){animation-delay:.21s}
+.station:nth-child(5){animation-delay:.28s}
+.station:nth-child(6){animation-delay:.35s}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.station.solved{border:2px solid #65b995;background:#f5fcf8}
+.station-top{display:flex;justify-content:space-between;align-items:center}
+.station-number{
+  width:43px;height:43px;border-radius:14px;background:#e0f2ec;
+  display:grid;place-items:center;color:#176d70;font-weight:900;font-size:1.1rem;
+}
+.station-status{font-size:.82rem;color:#73868c;font-weight:800}
+.station h3{font-size:1.3rem;margin:14px 0 5px}
+.station p{line-height:1.75;color:#4d6975;margin:8px 0}
+.data-box{
+  background:#eff6f4;border:1px solid #e1eeea;border-radius:15px;
+  padding:14px;margin:14px 0;line-height:1.7;
+}
+.data-box strong{color:#174f5c}
+.data-box small{display:block;color:#657f86;font-size:.8rem;margin-top:8px}
+.question{font-weight:900;margin-top:15px}
+.options{display:grid;gap:8px;margin-top:11px}
+.option{
+  border:1px solid #cadcda;background:#fff;border-radius:12px;padding:11px 13px;
+  text-align:right;cursor:pointer;color:var(--ink);transition:.15s;
+}
+.option:hover{border-color:#37a99a;background:#f1faf6;transform:translateX(-2px)}
+.option:disabled{cursor:default;transform:none}
+.option.correct{background:#e3f5e9;border-color:#62b582;color:#185d3b}
+.option.wrong{background:#fff0ed;border-color:#d88b7e;color:#963e35}
+.feedback{min-height:30px;margin-top:11px;font-weight:800;font-size:.91rem;line-height:1.6}
+.feedback.good{color:#238052}.feedback.bad{color:#a94a40}
+.source{font-size:.8rem;color:#627b83;border-top:1px solid #e2ece9;
+  margin-top:15px;padding-top:10px;line-height:1.65}
+a.source-link{color:#176b87;font-weight:800}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem}
+th,td{padding:8px 6px;text-align:center;border-bottom:1px solid #d8e6e2}
+th{background:#dfefea;color:#174e59}
+tr:nth-child(even){background:#f8fbfa}
+.chart-title{font-weight:900;margin:8px 0}
+.chart{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  margin:14px 0 4px;
+}
+.season{
+  border-radius:12px;background:#fff;padding:10px 7px;text-align:center;
+  border:1px solid #dce9e5;
+}
+.season strong{display:block;font-size:.84rem;margin-bottom:8px}
+.bar-pair{display:flex;justify-content:center;align-items:end;gap:5px;height:92px;
+  border-bottom:2px solid #adc4bf;padding-bottom:0}
+.bar{
+  width:18px;border-radius:5px 5px 0 0;position:relative;
+  min-height:3px;background:#258d9a;
+}
+.bar.vegetation{background:#72a66b}
+.bar-values{font-size:.7rem;line-height:1.6;margin-top:7px;color:#58727a}
+.chart-key{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;font-weight:700}
+.key-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-left:4px}
+.final{
+  display:none;text-align:center;color:white;padding:32px;border-radius:25px;
+  background:linear-gradient(130deg,#12374a,#167e78);box-shadow:var(--shadow);
+  margin-top:25px;
+}
+.final.show{display:block;animation:appear .7s ease}
+.final .medal{font-size:4rem}
+.final h2{font-size:2rem;margin:6px}
+.final p{line-height:1.85;color:#e1f1ed}
+.reset{
+  border:0;border-radius:12px;padding:12px 20px;background:var(--gold);
+  color:#453719;font-weight:900;cursor:pointer;margin-top:10px;
+}
+.sources h2{margin-top:0}
+.sources p{line-height:1.8}
+footer{text-align:center;color:#607982;padding:25px 12px;font-size:.92rem}
+footer strong{color:#173e4c;font-size:1rem}
+@media(max-width:760px){
+  .intro{grid-template-columns:1fr}
+  .stations{grid-template-columns:1fr}
+  .panel,.map-panel{padding:17px}
+  .hero{padding:40px 19px 65px}
+  .map-heading h2{font-size:1.2rem}
+  .map-legend{font-size:.8rem;gap:10px}
+  .map-marker{width:32px;height:32px;font-size:.85rem}
+  .chart{gap:5px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">חדר בריחה מדעי • חטיבת הביניים</div>
+    <h1>תיק החולה</h1>
+    <h2>תעלומת האגם שנעלם</h2>
+    <p>
+      פעם השתרעו כאן אגם וביצות רחבי ידיים. המים נוקזו, הנוף השתנה,
+      ובהמשך הוקם פרויקט שיקום. האם הטבע חזר לקדמותו?
+      צאו למסע חקירה, בחנו נתונים מדעיים וגלו מה באמת מספרות הראיות.
+    </p>
+    <div class="hero-symbols" aria-hidden="true">
+      <span class="hero-bird">🐦</span>
+      <span class="hero-bird">🌾</span>
+      <span class="hero-bird">💧</span>
+      <span class="hero-bird">🐟</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="panel intro">
+    <div>
+      <h2>המשימה שלכם, חוקרי החולה</h2>
+      <p>
+        שש תחנות חקירה מחכות לכם. בכל תחנה תצטרכו לקרוא מידע,
+        לנתח נתונים ולפתור חידה. זכרו: חוקר טוב אינו מסתפק במספר.
+        הוא בודק מה נמדד, מתי נמדד, ומה באמת אפשר להסיק.
+      </p>
+    </div>
+    <div class="mission-stamp">
+      <span>🔎</span>
+      תיק חקירה פתוח<br>הראיות מחכות לכם
+    </div>
+  </section>
+
+  <section class="map-panel">
+    <div class="map-heading">
+      <div>
+        <div class="map-kicker">מפת זירת החקירה</div>
+        <h2>עמק החולה – בין הרים, מים וציפורים</h2>
+        <p>לחצו על אחד הסמנים כדי להגיע לתחנת החקירה.</p>
+      </div>
+      <div class="compass">N<br>↑</div>
+    </div>
+
+    <div class="map-wrap">
+      <svg viewBox="0 0 900 470" role="img"
+           aria-label="מפה סכמטית מאוירת של עמק החולה, הרים, מקווי מים וצמחיית ביצה">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#b9e2e9"/>
+            <stop offset="1" stop-color="#e8f4e9"/>
+          </linearGradient>
+          <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#65c9c7"/>
+            <stop offset="1" stop-color="#197a9c"/>
+          </linearGradient>
+          <linearGradient id="hills" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#88a99a"/>
+            <stop offset="1" stop-color="#426d67"/>
+          </linearGradient>
+        </defs>
+        <rect width="900" height="470" fill="url(#sky)"/>
+        <circle cx="760" cy="76" r="35" fill="#f5d58b"/>
+        <g fill="#fff" opacity=".75">
+          <ellipse cx="155" cy="78" rx="43" ry="16"/>
+          <ellipse cx="185" cy="68" rx="29" ry="20"/>
+          <ellipse cx="210" cy="79" rx="34" ry="14"/>
+          <ellipse cx="540" cy="55" rx="37" ry="13"/>
+          <ellipse cx="565" cy="46" rx="25" ry="18"/>
+          <ellipse cx="590" cy="56" rx="30" ry="13"/>
+        </g>
+
+        <!-- רכסי ההרים -->
+        <path d="M0 245 L90 135 L160 210 L265 82 L380 240 L490 125
+                 L600 235 L710 100 L810 220 L900 135 L900 335 L0 335Z"
+              fill="url(#hills)"/>
+        <path d="M265 82 L300 130 L270 118 L245 145 L220 121Z"
+              fill="#f5f7ed" opacity=".9"/>
+        <path d="M710 100 L750 145 L720 133 L700 158 L680 132Z"
+              fill="#f5f7ed" opacity=".9"/>
+
+        <!-- העמק -->
+        <path d="M0 275 Q220 235 430 285 T900 265 L900 470 L0 470Z"
+              fill="#b0cc91"/>
+        <path d="M0 330 Q210 285 440 337 T900 310 L900 470 L0 470Z"
+              fill="#7fab77"/>
+        <g stroke="#e8e5ad" stroke-width="3" fill="none" opacity=".6">
+          <path d="M20 350 Q170 315 330 355"/>
+          <path d="M30 380 Q180 345 340 385"/>
+          <path d="M600 350 Q740 320 880 350"/>
+          <path d="M590 385 Q740 350 890 380"/>
+        </g>
+
+        <!-- מקווי מים -->
+        <path d="M170 300 Q255 270 335 300 Q405 328 470 296
+                 Q545 263 620 295 Q695 325 770 292
+                 L800 365 Q710 395 625 362 Q545 335 465 368
+                 Q365 405 280 365 Q220 340 170 365Z"
+              fill="url(#lake)" stroke="#d8f2e9" stroke-width="5"/>
+        <path d="M420 319 Q465 294 510 320 Q495 346 445 345Z"
+              fill="#9bbd78"/>
+        <g fill="none" stroke="#c9f2eb" stroke-width="3">
+          <path class="water-ripple" d="M245 331 q30 -12 60 0"/>
+          <path class="water-ripple" d="M550 350 q28 -10 56 0"/>
+          <path class="water-ripple" d="M650 320 q22 -8 44 0"/>
+        </g>
+
+        <!-- קני סוף -->
+        <g stroke="#527d4c" stroke-width="5" stroke-linecap="round" fill="none">
+          <path class="reed" d="M105 420 Q100 365 112 320"/>
+          <path class="reed" d="M132 425 Q140 370 135 330"/>
+          <path class="reed" d="M160 420 Q155 375 170 340"/>
+          <path class="reed" d="M765 425 Q760 370 770 325"/>
+          <path class="reed" d="M790 430 Q800 380 795 335"/>
+          <path class="reed" d="M820 425 Q815 370 830 325"/>
+        </g>
+        <g fill="#987a4b">
+          <ellipse cx="112" cy="317" rx="7" ry="16"/>
+          <ellipse cx="135" cy="327" rx="7" ry="16"/>
+          <ellipse cx="170" cy="337" rx="7" ry="16"/>
+          <ellipse cx="770" cy="322" rx="7" ry="16"/>
+          <ellipse cx="795" cy="332" rx="7" ry="16"/>
+          <ellipse cx="830" cy="322" rx="7" ry="16"/>
+        </g>
+
+        <!-- ציפור באגם -->
+        <g transform="translate(520 286)">
+          <ellipse cx="0" cy="20" rx="18" ry="7" fill="#f5f1df"/>
+          <path d="M-7 18 Q-4 -3 12 0 Q22 5 12 17"
+                fill="none" stroke="#f5f1df" stroke-width="6"/>
+          <path d="M12 2 L29 5" stroke="#d8a34c" stroke-width="3"/>
+          <path d="M-15 25 L-20 37 M-4 25 L-7 37"
+                stroke="#d8a34c" stroke-width="2"/>
+        </g>
+
+        <!-- להקת ציפורים בתנועה -->
+        <g class="birds-flight" fill="none" stroke="#244c50"
+           stroke-width="5" stroke-linecap="round">
+          <path d="M0 12 Q12 -2 24 12 Q36 -2 48 12"/>
+          <path d="M55 30 Q67 16 79 30 Q91 16 103 30"/>
+          <path d="M115 5 Q127 -9 139 5 Q151 -9 163 5"/>
+        </g>
+
+        <g font-family="Arial,sans-serif" font-weight="bold"
+           fill="#173f4c" text-anchor="middle">
+          <text x="445" y="35" font-size="19">רכסי הצפון</text>
+          <text x="450" y="450" font-size="19">עמק החולה</text>
+        </g>
+        <text x="470" y="352" font-size="15" font-weight="bold"
+              fill="white" text-anchor="middle">מקווי מים</text>
+      </svg>
+
+      <a class="map-marker m1" href="#station1" title="תחנה 1">1</a>
+      <a class="map-marker m2" href="#station2" title="תחנה 2">2</a>
+      <a class="map-marker m3" href="#station3" title="תחנה 3">3</a>
+      <a class="map-marker m4" href="#station4" title="תחנה 4">4</a>
+      <a class="map-marker m5" href="#station5" title="תחנה 5">5</a>
+      <a class="map-marker m6" href="#station6" title="תחנה 6">6</a>
+    </div>
+    <div class="map-legend">
+      <span>⛰️ רכסי הרים</span>
+      <span>💧 מקווי מים</span>
+      <span>🌾 צמחיית ביצה</span>
+      <span>🐦 עופות</span>
+    </div>
+    <div class="map-note">המפה היא איור סכמטי להמחשה לימודית, ואינה מפה גאוגרפית בקנה מידה.</div>
+  </section>
+
+  <section class="panel">
+    <div class="progress-head">
+      <span>התקדמות החקירה</span>
+      <span id="progressText">0 מתוך 6 תחנות</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+  </section>
+
+  <div class="section-heading"><h2>שש תחנות החקירה</h2></div>
+
+  <section class="stations">
+
+    <!-- תחנה 1 -->
+    <article class="station" id="station1">
+      <div class="station-top">
+        <div class="station-number">01</div>
+        <div class="station-status" id="status1">ממתינה לפתרון</div>
+      </div>
+      <h3>האגם שנעלם</h3>
+      <p>
+        לפני מפעל הייבוש של שנות החמישים, חלקים נרחבים מעמק החולה
+        היו מכוסים באגם, בביצות ובשטחים שהוצפו בעונות מסוימות.
+      </p>
+      <div class="data-box">
+        <strong>שטחי המים והביצות לפני הייבוש</strong>
+        <table>
+          <tr><th>סוג השטח</th><th>שטח בקמ"ר</th></tr>
+          <tr><td>אגם החולה הקדום</td><td>14</td></tr>
+          <tr><td>ביצות קבועות</td><td>32</td></tr>
+          <tr><td>הצפה עונתית</td><td>13</td></tr>
+          <tr><th>סך הכול</th><th>59</th></tr>
+        </table>
+        לאחר הייבוש נותרו כ-6 קמ"ר של שטחים ביצתיים ומוצפים.
+        <small>הנתונים מתייחסים לשטח של 59 קמ"ר בעמק החולה, לפי Gophen (2023).</small>
+      </div>
+      <div class="question">בכמה קמ"ר פחת השטח שהיה מכוסה במים ובביצות, בהשוואה לנתון המקורי?</div>
+      <div class="options" data-answer="53">
+        <button class="option" data-value="45">45 קמ"ר</button>
+        <button class="option" data-value="53">53 קמ"ר</button>
+        <button class="option" data-value="59">59 קמ"ר</button>
+      </div>
+      <div class="feedback" id="feedback1"></div>
+      <div class="source">
+        מקור: Gophen (2023), טבלה 1 ודיון.
+        <a class="source-link" href="https://doi.org/10.3390/d15060758" target="_blank" rel="noopener">למאמר המדעי</a>.
+      </div>
+    </article>
+
+    <!-- תחנה 2 -->
+    <article class="station" id="station2">
+      <div class="station-top">
+        <div class="station-number">02</div>
+        <div class="station-status" id="status2">ממתינה לפתרון</div>
+      </div>
+      <h3>תעלומת הציפורים</h3>
+      <p>
+        בעמק החולה נצפו מיני עופות רבים. אבל האם אפשר להשוות כל שני מספרים
+        שמופיעים במאמר וליצור מהם מגמת שינוי?
+      </p>
+      <div class="data-box">
+        <strong>שני נתונים המופיעים במאמר:</strong>
+        <table>
+          <tr><th>תיאור התקופה</th><th>מספר מינים</th></tr>
+          <tr><td>בשנת 2005</td><td>204</td></tr>
+          <tr><td>בתקופה 1996–2005</td><td>209</td></tr>
+        </table>
+        <small>
+          במאמר מופיעים גם נתונים נוספים, אך יש בו אי-התאמות בין חלק מהתיאורים
+          והתקופות. אין להתייחס למספרים כסדרה אחידה ללא בדיקה.
+        </small>
+      </div>
+      <div class="question">מהי המסקנה המדעית הזהירה ביותר?</div>
+      <div class="options" data-answer="b">
+        <button class="option" data-value="a">מספר מיני העופות עלה בדיוק בחמישה מינים.</button>
+        <button class="option" data-value="b">צריך לבדוק את הגדרת התקופות ואת שיטת הספירה לפני השוואה.</button>
+        <button class="option" data-value="c">המספר הגבוה יותר בהכרח נכון והנמוך שגוי.</button>
+      </div>
+      <div class="feedback" id="feedback2"></div>
+      <div class="source">
+        מקור: Gophen (2023), סעיפים 4.3–4.4.
+        <a class="source-link" href="https://doi.org/10.3390/d15060758" target="_blank" rel="noopener">למאמר</a>.
+      </div>
+    </article>
+
+    <!-- תחנה 3 -->
+    <article class="station" id="station3">
+      <div class="station-top">
+        <div class="station-number">03</div>
+        <div class="station-status" id="status3">ממתינה לפתרון</div>
+      </div>
+      <h3>עקבות הזרחן במים</h3>
+      <p>
+        חוקרים בדקו את ריכוז הזרחן הכללי (TP) במים היוצאים מאגם אגמון החולה.
+        הטבלה מציגה ממוצעים חודשיים לאורך השנים 1994–2018.
+      </p>
+      <div class="data-box">
+        <strong>ריכוז זרחן כללי – ממוצעים חודשיים</strong>
+        <table>
+          <tr><th>חודש</th><th>TP (ppb)</th><th>חודש</th><th>TP (ppb)</th></tr>
+          <tr><td>ינואר</td><td>222</td><td>יולי</td><td>204</td></tr>
+          <tr><td>פברואר</td><td>258</td><td>אוגוסט</td><td>317</td></tr>
+          <tr><td>מרץ</td><td>232</td><td>ספטמבר</td><td>473</td></tr>
+          <tr><td>אפריל</td><td>183</td><td>אוקטובר</td><td>279</td></tr>
+          <tr><td>מאי</td><td>222</td><td>נובמבר</td><td>325</td></tr>
+          <tr><td>יוני</td><td>222</td><td>דצמבר</td><td>245</td></tr>
+        </table>
+        <small>
+          ppb = חלקים למיליארד. אלה ממוצעים רב-שנתיים ולא מדידה של חודש מסוים
+          בשנה אחת.
+        </small>
+      </div>
+      <div class="question">באיזה חודש נמצא הממוצע הגבוה ביותר של זרחן כללי?</div>
+      <div class="options" data-answer="9">
+        <button class="option" data-value="3">מרץ</button>
+        <button class="option" data-value="9">ספטמבר</button>
+        <button class="option" data-value="11">נובמבר</button>
+      </div>
+      <div class="feedback" id="feedback3"></div>
+      <div class="source">
+        מקור: Gophen (2023), טבלה 3.
+        <a class="source-link" href="https://doi.org/10.3390/d15060758" target="_blank" rel="noopener">למאמר המדעי</a>.
+      </div>
+    </article>
+
+    <!-- תחנה 4 -->
+    <article class="station" id="station4">
+      <div class="station-top">
+        <div class="station-number">04</div>
+        <div class="station-status" id="status4">ממתינה לפתרון</div>
+      </div>
+      <h3>החידה של הפחמן</h3>
+      <p>
+        מחקר שפורסם ב-2026 מדד חילופי פחמן דו-חמצני בין אגמון החולה
+        לאטמוספרה. החוקרים מדדו מעל מים פתוחים ומעל אזור צמחייה.
+      </p>
+      <div class="data-box">
+        <strong>שטף CO₂ שנתי ממוצע</strong>
+        <table>
+          <tr><th>סביבת המדידה</th><th>שטף CO₂</th></tr>
+          <tr><td>מים פתוחים</td><td>+4.78</td></tr>
+          <tr><td>אזור צמחייה</td><td>−0.97</td></tr>
+        </table>
+        <small>
+          יחידות: µmol CO₂ m⁻² s⁻¹. ערך חיובי מציין פליטה נטו לאטמוספרה;
+          ערך שלילי מציין קליטה נטו. הנתונים הם ממוצעים עם שונות גדולה.
+        </small>
+      </div>
+
+      <div class="chart-title">השוואת שטף CO₂ לפי עונות השנה</div>
+      <div class="chart">
+        <div class="season">
+          <strong>אביב</strong>
+          <div class="bar-pair">
+            <div class="bar" style="height:44px" title="מים: 4.49"></div>
+            <div class="bar vegetation" style="height:41px" title="צמחייה: -4.18"></div>
+          </div>
+          <div class="bar-values">מים 4.49<br>צמחייה −4.18</div>
+        </div>
+        <div class="season">
+          <strong>קיץ</strong>
+          <div class="bar-pair">
+            <div class="bar" style="height:48px" title="מים: 4.93"></div>
+            <div class="bar vegetation" style="height:18px" title="צמחייה: -1.88"></div>
+          </div>
+          <div class="bar-values">מים 4.93<br>צמחייה −1.88</div>
+        </div>
+        <div class="season">
+          <strong>סתיו</strong>
+          <div class="bar-pair">
+            <div class="bar" style="height:49px" title="מים: 5.06"></div>
+            <div class="bar vegetation" style="height:7px" title="צמחייה: 0.63"></div>
+          </div>
+          <div class="bar-values">מים 5.06<br>צמחייה 0.63</div>
+        </div>
+        <div class="season">
+          <strong>חורף</strong>
+          <div class="bar-pair">
+            <div class="bar" style="height:44px" title="מים: 4.55"></div>
+            <div class="bar vegetation" style="height:20px" title="צמחייה: 2.09"></div>
+          </div>
+          <div class="bar-values">מים 4.55<br>צמחייה 2.09</div>
+        </div>
+      </div>
+      <div class="chart-key">
+        <span><i class="key-dot" style="background:#258d9a"></i>מים פתוחים</span>
+        <span><i class="key-dot" style="background:#72a66b"></i>אזור צמחייה</span>
+      </div>
+      <small style="color:#657f86">
+        הערכים המספריים בטבלה הם שטפים עונתיים ממוצעים ביחידות µmol CO₂ m⁻² s⁻¹.
+        הגבהים בגרף הם המחשה חזותית בלבד.
+      </small>
+
+      <div class="question">איזו סביבת מדידה פעלה בממוצע השנתי כקולטת נטו של CO₂?</div>
+      <div class="options" data-answer="vegetation">
+        <button class="option" data-value="water">מים פתוחים</button>
+        <button class="option" data-value="vegetation">אזור הצמחייה</button>
+        <button class="option" data-value="both">שתיהן פלטו CO₂</button>
+      </div>
+      <div class="feedback" id="feedback4"></div>
+      <div class="source">
+        מקור: Helman et al. (2026), Table 2.
+        <a class="source-link" href="https://doi.org/10.1029/2026JG009794" target="_blank" rel="noopener">למאמר המדעי</a>.
+      </div>
+    </article>
+
+    <!-- תחנה 5 -->
+    <article class="station" id="station5">
+      <div class="station-top">
+        <div class="station-number">05</div>
+        <div class="station-status" id="status5">ממתינה לפתרון</div>
+      </div>
+      <h3>איך מודדים נשימה של אגם?</h3>
+      <p>
+        החוקרים השתמשו בשיטת Eddy Covariance: מדידה רציפה של תנועת האוויר
+        וריכוז הגזים, המאפשרת לחשב את שטף הגז מעל פני השטח.
+      </p>
+      <div class="data-box">
+        <strong>תקופות המדידה במחקר:</strong>
+        <ul>
+          <li>תחנת המים: מאי 2021 עד יוני 2024.</li>
+          <li>תחנת הצמחייה: מאי 2023 עד יולי 2024.</li>
+        </ul>
+        <small>שתי התחנות לא פעלו לאורך תקופה זהה במלואה.</small>
+      </div>
+      <div class="question">מדוע חשוב לציין את ההבדל בתקופות המדידה כאשר משווים בין התחנות?</div>
+      <div class="options" data-answer="b">
+        <button class="option" data-value="a">כי תחנת המים מדדה טמפרטורה ותחנת הצמחייה מדדה גשם.</button>
+        <button class="option" data-value="b">כי עונות ושנים שונות עשויות להשפיע על התוצאות.</button>
+        <button class="option" data-value="c">אין לכך חשיבות, כל עוד שתי התחנות באותו אתר.</button>
+      </div>
+      <div class="feedback" id="feedback5"></div>
+      <div class="source">
+        מקור: Helman et al. (2026), שיטות המחקר ותיאור תקופות המדידה.
+        <a class="source-link" href="https://doi.org/10.1029/2026JG009794" target="_blank" rel="noopener">למאמר</a>.
+      </div>
+    </article>
+
+    <!-- תחנה 6 -->
+    <article class="station" id="station6">
+      <div class="station-top">
+        <div class="station-number">06</div>
+        <div class="station-status" id="status6">ממתינה לפתרון</div>
+      </div>
+      <h3>החלטה לעתיד החולה</h3>
+      <p>
+        המחקר מצא הבדלים בין שטחי מים פתוחים לשטחי צמחייה מבחינת חילופי CO₂.
+        החוקרים העריכו שבאתר ובתנאים שנבדקו, כיסוי צמחייה של יותר מ-80%
+        עשוי להידרש כדי להתקרב לאיזון CO₂.
+      </p>
+      <div class="data-box">
+        <strong>אבל חשוב לזכור:</strong>
+        <ul>
+          <li>זהו ממצא התלוי בתנאי האתר ובתקופת המדידה.</li>
+          <li>המחקר מדד CO₂, ולא את כלל גזי החממה.</li>
+          <li>לשמירת טבע מטרות נוספות: מגוון בתי גידול, עופות, צמחים, דגים ואיכות מים.</li>
+        </ul>
+      </div>
+      <div class="question">איזו המלצה היא המדעית והאחראית ביותר?</div>
+      <div class="options" data-answer="c">
+        <button class="option" data-value="a">לייבש את כל האגם, כי מים תמיד פולטים פחמן.</button>
+        <button class="option" data-value="b">לכסות את כל האגם בצמחייה בלי להתחשב בבעלי החיים.</button>
+        <button class="option" data-value="c">לבחון ניהול משולב של מים וצמחייה ולנטר פחמן, מגוון ביולוגי ואיכות מים.</button>
+      </div>
+      <div class="feedback" id="feedback6"></div>
+      <div class="source">
+        מקור: Helman et al. (2026), תוצאות ודיון.
+        <a class="source-link" href="https://doi.org/10.1029/2026JG009794" target="_blank" rel="noopener">למאמר המדעי</a>.
+      </div>
+    </article>
+  </section>
+
+  <section class="final" id="final">
+    <div class="medal">🏅</div>
+    <h2>החקירה הושלמה!</h2>
+    <p>
+      פתחתם את תיק החולה, בחנתם נתונים אמיתיים, זיהיתם אי-התאמה במקור מדעי
+      ולמדתם ששיקום של מערכת אקולוגית הוא משימה מורכבת.
+    </p>
+    <p>
+      <strong>מסקנת החקירה:</strong><br>
+      שיקום אינו בהכרח מחזיר מערכת אקולוגית למצבה הקדום.
+      הוא עשוי ליצור מערכת חדשה, שאותה צריך להמשיך למדוד, לחקור ולנהל.
+    </p>
+    <p>חוקרים טובים אינם מחפשים רק תשובות. הם בודקים אם הראיות מספיקות כדי להסיק מסקנה.</p>
+    <button class="reset" onclick="resetGame()">התחילו חקירה מחדש</button>
+  </section>
+
+  <section class="panel sources">
+    <h2>תיק המקורות המדעיים</h2>
+    <p>
+      <strong>1. מגוון ביולוגי ושינויים בעמק החולה</strong><br>
+      Gophen, M. (2023). Biodiversity during Pre and Post Hula Valley (Israel) Drainage.
+      <em>Diversity</em>, 15(6), 758.<br>
+      <a class="source-link" href="https://doi.org/10.3390/d15060758" target="_blank" rel="noopener">
+        https://doi.org/10.3390/d15060758
+      </a>
+    </p>
+    <p>
+      <strong>2. מדידות פחמן באגמון החולה</strong><br>
+      Helman, D., Tau, G., Michael, Y., &amp; Lensky, N. (2026).
+      Restored but Still Emitting: High CO₂ Fluxes From a Mediterranean Wetland
+      Challenge Inundation-Based Restoration Strategies.
+      <em>Journal of Geophysical Research: Biogeosciences</em>,
+      131(11), e2026JG009794.<br>
+      <a class="source-link" href="https://doi.org/10.1029/2026JG009794" target="_blank" rel="noopener">
+        https://doi.org/10.1029/2026JG009794
+      </a>
+    </p>
+    <p style="font-size:.86rem;color:#667e85">
+      הנתונים מוצגים בהתאם לתקופות, ליחידות ולשיטות המתוארות במאמרים.
+      נתוני הציפורים מוצגים כתרגיל בקריאה ביקורתית, ולא כסדרת מגמות אחידה.
+      מדידות CO₂ אינן מייצגות לבדן את כלל מאזן גזי החממה או את כלל הצלחת השיקום.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <strong>עריכה: מילכה ברקו גרש</strong><br>
+  חדר בריחה מדעי בנושא עמק החולה ואגמון החולה
+</footer>
+
+<script>
+const solved = new Set();
+
+const explanations = {
+  1: "נכון! 59 פחות 6 הם 53 קמ״ר. זו ירידה ניכרת בשטחי המים והביצות.",
+  2: "בדיוק. לפני שמשווים נתונים צריך לבדוק את התקופות, שיטות הספירה והגדרות המדידה.",
+  3: "נכון! 473 ppb הוא הערך הגבוה ביותר בטבלה, והוא מופיע בחודש ספטמבר.",
+  4: "נכון. הערך השלילי באזור הצמחייה מציין קליטה נטו של CO₂ בממוצע השנתי.",
+  5: "נכון. עונות ושנים שונות עשויות להשפיע על התוצאות, ולכן יש להתחשב בתקופות המדידה.",
+  6: "תשובה מצוינת. ניהול סביבתי אחראי בוחן כמה מטרות במקביל ומבוסס על ניטור מתמשך."
+};
+
+document.querySelectorAll(".options").forEach(group => {
+  group.querySelectorAll(".option").forEach(button => {
+    button.addEventListener("click", () => {
+      const station = group.closest(".station");
+      const id = Number(station.id.replace("station", ""));
+      if (solved.has(id)) return;
+
+      const feedback = document.getElementById("feedback" + id);
+      const correct = button.dataset.value === group.dataset.answer;
+
+      if (correct) {
+        solved.add(id);
+        button.classList.add("correct");
+        group.querySelectorAll("button").forEach(b => b.disabled = true);
+        station.classList.add("solved");
+        document.getElementById("status" + id).textContent = "✓ נפתרה";
+        feedback.textContent = explanations[id];
+        feedback.className = "feedback good";
+        updateProgress();
+      } else {
+        button.classList.add("wrong");
+        feedback.textContent = "עדיין לא. קראו שוב את הנתונים ונסו לחשוב מה אפשר להסיק מהם.";
+        feedback.className = "feedback bad";
+        setTimeout(() => button.classList.remove("wrong"), 850);
+      }
+    });
+  });
+});
+
+function updateProgress() {
+  const count = solved.size;
+  document.getElementById("progressText").textContent = count + " מתוך 6 תחנות";
+  document.getElementById("progressBar").style.width = (count / 6 * 100) + "%";
+
+  if (count === 6) {
+    const finalPanel = document.getElementById("final");
+    finalPanel.classList.add("show");
+    finalPanel.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+}
+
+function resetGame() {
+  solved.clear();
+
+  document.querySelectorAll(".station").forEach(station => {
+    station.classList.remove("solved");
+    const id = Number(station.id.replace("station", ""));
+    document.getElementById("status" + id).textContent = "ממתינה לפתרון";
+
+    const feedback = document.getElementById("feedback" + id);
+    feedback.textContent = "";
+    feedback.className = "feedback";
+
+    station.querySelectorAll(".option").forEach(button => {
+      button.disabled = false;
+      button.classList.remove("correct", "wrong");
+    });
+  });
+
+  document.getElementById("final").classList.remove("show");
+  updateProgress();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+</script>
+</body>
+</html>
